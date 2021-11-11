@@ -3,9 +3,11 @@ import bodyParser from 'body-parser';
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+import routes from './server/routes/PropertyRoutes';
+
 const port = process.env.PORT || 8000;
 
-
+app.use('/api/v1/properties', routes);
 // Handle undefined routes
 app.get('*', (req, res) =>
   res.status(200).send({

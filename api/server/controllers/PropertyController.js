@@ -4,7 +4,7 @@ import Util from '../utils/Utils';
 const util = new Util();
 
 class PropertyController {
-  static async getAllPropetiess(req, res) {
+  static async getAllPropeties(req, res) {
     try {
       const allProperties = await PropertiesService.getAllProperties();
       if (allProperties.length > 0) {
