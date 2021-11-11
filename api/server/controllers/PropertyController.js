@@ -4,11 +4,11 @@ import Util from '../utils/Utils';
 const util = new Util();
 
 class PropertyController {
-  static async getAllPropeties(req, res) {
+  static async getPropeties(req, res) {
     try {
       const allProperties = await PropertiesService.getAllProperties();
       if (allProperties.length > 0) {
-        util.setSuccess(200, 'Properties returned successfully', allBooks);
+        util.setSuccess(200, 'Properties returned successfully', allProperties);
       } else {
         util.setSuccess(200, 'No properties found at the moment');
       }
@@ -34,16 +34,16 @@ class PropertyController {
     } = req.body;
 
     if (
-      !propertyTitle ||
-      !slug ||
-      !location ||
-      !price ||
-      !size ||
-      !rooms ||
-      !beds ||
-      !bathrooms ||
-      !featured ||
-      !description
+      propertyTitle === '' ||
+      slug === '' ||
+      location === '' ||
+      price === '' ||
+      size === '' ||
+      rooms === '' ||
+      beds === '' ||
+      bathrooms === '' ||
+      featured === '' ||
+      description === ''
     ) {
       util.setError(400, 'Please provide complete details');
       return util.send(res);
@@ -51,7 +51,7 @@ class PropertyController {
     const newProperty = req.body;
     try {
       const createdProperty = await PropertiesService.addProperty(newProperty);
-      util.setSuccess(201, 'Book Added!', createdProperty);
+      util.setSuccess(201, 'Property created successfully', createdProperty);
       return util.send(res);
     } catch (error) {
       util.setError(400, error.message);
@@ -77,7 +77,7 @@ class PropertyController {
       if (!updateProperty) {
         util.setError(404, `Property with this id does not exist: ${id}`);
       } else {
-        util.setSuccess(200, 'Property updated successfully', updateBook);
+        util.setSuccess(200, 'Property updated successfully', updateProperty);
       }
       return util.send(res);
     } catch (error) {

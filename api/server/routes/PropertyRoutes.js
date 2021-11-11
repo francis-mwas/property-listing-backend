@@ -3,7 +3,7 @@ import PropertyController from '../controllers/PropertyController';
 
 const router = Router();
 
-router.get('/', PropertyController.getAllPropeties);
+router.get('/', PropertyController.getPropeties);
 router.post('/', PropertyController.addProperty);
 router.get('/:id', PropertyController.getASingleProperty);
 router.put('/:id', PropertyController.updatedProperty);
