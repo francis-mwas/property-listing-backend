@@ -4,7 +4,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT || 8000;
-// when a random route is inputed
+
+
+// Handle undefined routes
 app.get('*', (req, res) =>
   res.status(200).send({
     message:
