@@ -37,6 +37,7 @@ class PropertiesService {
   }
 
   static async getSingleProperty(id) {
+    console.log('Start to get a single property');
     try {
       const property = await database.property_listing.findOne({
         where: { id: Number(id) },

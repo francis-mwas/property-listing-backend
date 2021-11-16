@@ -89,6 +89,8 @@ class PropertyController {
   static async getASingleProperty(req, res) {
     const { id } = req.params;
 
+    parseInt(id);
+
     if (!Number(id)) {
       util.setError(
         400,

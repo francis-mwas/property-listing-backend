@@ -46,7 +46,7 @@ describe('Testing the property endpoints:', () => {
   });
 
   it('It should not create a property with some empty fields', (done) => {
-    const book = {
+    const property = {
       slug: 'House for rent',
       location: 'Kasarani area',
       price: 7800000,
@@ -56,33 +56,40 @@ describe('Testing the property endpoints:', () => {
       .request(app)
       .post('/api/v1/properties')
       .set('Accept', 'application/json')
-      .send(book)
+      .send(property)
       .end((err, res) => {
         expect(res.status).to.equal(400);
         done();
       });
   });
 
-  it('It should get all books', (done) => {
+  it('It should get all properties', (done) => {
     chai
       .request(app)
-      .get('/api/v1/books')
+      .get('/api/v1/properties')
       .set('Accept', 'application/json')
       .end((err, res) => {
         expect(res.status).to.equal(200);
         res.body.data[0].should.have.property('id');
-        res.body.data[0].should.have.property('title');
+        res.body.data[0].should.have.property('propertyTitle');
+        res.body.data[0].should.have.property('slug');
+        res.body.data[0].should.have.property('location');
         res.body.data[0].should.have.property('price');
+        res.body.data[0].should.have.property('size');
+        res.body.data[0].should.have.property('rooms');
+        res.body.data[0].should.have.property('beds');
+        res.body.data[0].should.have.property('bathrooms');
+        res.body.data[0].should.have.property('featured');
         res.body.data[0].should.have.property('description');
         done();
       });
   });
 
-  it('It should get a particular book', (done) => {
-    const bookId = 1;
+  it('It should get a certain property', (done) => {
+    const propertyId = 1;
     chai
       .request(app)
-      .get(`/api/v1/books/${bookId}`)
+      .get(`/api/v1/books/${propertyId}`)
       .set('Accept', 'application/json')
       .end((err, res) => {
         expect(res.status).to.equal(200);
