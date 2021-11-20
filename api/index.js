@@ -10,11 +10,12 @@ const port = process.env.PORT || 8000;
 app.use('/api/v1/properties', routes);
 // Handle undefined routes
 app.get('*', (req, res) =>
-  res.status(200).send({
+  res.status(404).send({
     message:
       'Url does not exist on this server, but hey thank you for visiting our API.',
   })
 );
+
 app.listen(port, () => {
   console.log(`Server is running on PORT ${port}`);
 });

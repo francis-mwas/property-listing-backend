@@ -7,6 +7,8 @@ class PropertyController {
   static async getPropeties(req, res) {
     try {
       const allProperties = await PropertiesService.getAllProperties();
+
+      console.log('Get all properties foiund', allProperties);
       if (allProperties.length > 0) {
         util.setSuccess(200, 'Properties returned successfully', allProperties);
       } else {
@@ -15,6 +17,37 @@ class PropertyController {
       return util.send(res);
     } catch (error) {
       util.setError(400, error);
+      return util.send(res);
+    }
+  }
+
+  static async getASingleProperty(req, res) {
+    console.log('The route that we have hit:', req.params);
+    const { id } = req.params;
+    if (!Number(id)) {
+      util.setError(
+        400,
+        'Invalid property id, please input valid numeric number'
+      );
+      return util.send(res);
+    }
+
+    try {
+      const property = await PropertiesService.getSingleProperty(id);
+
+      console.log('The property found:', property);
+
+      if (!property) {
+        util.setError(
+          404,
+          `Invalid property id, please input valid numeric number${id}`
+        );
+      } else {
+        util.setSuccess(200, 'Property returned successfully', property);
+      }
+      return util.send(res);
+    } catch (error) {
+      util.setError(404, error);
       return util.send(res);
     }
   }
@@ -78,37 +111,6 @@ class PropertyController {
         util.setError(404, `Property with this id does not exist: ${id}`);
       } else {
         util.setSuccess(200, 'Property updated successfully', updateProperty);
-      }
-      return util.send(res);
-    } catch (error) {
-      util.setError(404, error);
-      return util.send(res);
-    }
-  }
-
-  static async getASingleProperty(req, res) {
-    const { id } = req.params;
-
-    parseInt(id);
-
-    if (!Number(id)) {
-      util.setError(
-        400,
-        'Invalid property id, please input valid numeric number'
-      );
-      return util.send(res);
-    }
-
-    try {
-      const property = await PropertiesService.getSingleProperty(id);
-
-      if (!property) {
-        util.setError(
-          404,
-          `Invalid property id, please input valid numeric number${id}`
-        );
-      } else {
-        util.setSuccess(200, 'Property returned successfully', property);
       }
       return util.send(res);
     } catch (error) {

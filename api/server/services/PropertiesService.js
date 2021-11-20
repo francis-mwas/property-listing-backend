@@ -42,7 +42,7 @@ class PropertiesService {
       const property = await database.property_listing.findOne({
         where: { id: Number(id) },
       });
-
+      console.log('Thye property is here:', property);
       return property;
     } catch (error) {
       throw error;
