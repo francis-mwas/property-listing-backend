@@ -108,7 +108,7 @@ describe('Testing the property endpoints:', () => {
   });
 
   it('It should not get a single property with invalid id', (done) => {
-    const propertyId = 44992;
+    const propertyId = 492;
     chai
       .request(app)
       .get(`/api/v1/properties/${propertyId}`)
@@ -117,7 +117,9 @@ describe('Testing the property endpoints:', () => {
         expect(res.status).to.equal(404);
         res.body.should.have
           .property('message')
-          .eql(`Cannot find a property with the id ${propertyId}`);
+          .eql(
+            `Invalid property id, please input valid numeric number ${propertyId}`
+          );
         done();
       });
   });
@@ -132,13 +134,13 @@ describe('Testing the property endpoints:', () => {
         expect(res.status).to.equal(400);
         res.body.should.have
           .property('message')
-          .eql('Please input a valid id, id must be numeric');
+          .eql('Invalid property id, please input valid numeric number');
         done();
       });
   });
 
   it('It should update a property', (done) => {
-    propertyId = 1;
+    const propertyId = 1;
     const updatedProperty = {
       id: propertyId,
       propertyTitle: 'Title have been updated!',
@@ -202,7 +204,7 @@ describe('Testing the property endpoints:', () => {
         expect(res.status).to.equal(404);
         res.body.should.have
           .property('message')
-          .eql(`Cannot find a property with the id: ${updatedProperty}`);
+          .eql(`Property with this id does not exist: ${propertyId}`);
         done();
       });
   });
@@ -232,7 +234,7 @@ describe('Testing the property endpoints:', () => {
         expect(res.status).to.equal(400);
         res.body.should.have
           .property('message')
-          .eql('Please input a valid numeric value');
+          .eql('Invalid property id, please input valid numeric number');
         done();
       });
   });
@@ -260,7 +262,7 @@ describe('Testing the property endpoints:', () => {
         expect(res.status).to.equal(404);
         res.body.should.have
           .property('message')
-          .eql(`Property with the id ${propertyId} cannot be found`);
+          .eql(`Property with this id ${propertyId} does not exist`);
         done();
       });
   });
@@ -275,7 +277,7 @@ describe('Testing the property endpoints:', () => {
         expect(res.status).to.equal(400);
         res.body.should.have
           .property('message')
-          .eql('Please provide a numeric value');
+          .eql('Invalid property id, please input valid numeric number');
         done();
       });
   });

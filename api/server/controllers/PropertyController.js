@@ -22,7 +22,6 @@ class PropertyController {
   }
 
   static async getASingleProperty(req, res) {
-    console.log('The route that we have hit:', req.params);
     const { id } = req.params;
     if (!Number(id)) {
       util.setError(
@@ -40,7 +39,7 @@ class PropertyController {
       if (!property) {
         util.setError(
           404,
-          `Invalid property id, please input valid numeric number${id}`
+          `Invalid property id, please input valid numeric number ${id}`
         );
       } else {
         util.setSuccess(200, 'Property returned successfully', property);
