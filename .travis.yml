@@ -17,7 +17,7 @@ before_script:
   - psql -c 'create database properties_test' -U postgres
   - psql -c "CREATE USER mwas WITH PASSWORD null;" -U postgres
   - yarn build
-  - yarn add -g sequelize-cli
+  - yarn global add sequelize-cli
   - sequelize db:migrate
 script:
   - yarn test
